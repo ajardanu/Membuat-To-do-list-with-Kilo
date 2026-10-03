@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taskflow — To-Do List</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✓</text></svg>">
+</head>
+<body>
+    <main class="app">
+        <header class="topbar">
+            <div class="brand">
+                <div class="logo" aria-hidden="true">✓</div>
+                <div>
+                    <h1>Taskflow</h1>
+                    <p class="tagline" id="todayLabel"></p>
+                </div>
+            </div>git 
+            <button id="themeToggle" class="icon-btn" type="button" title="Toggle theme" aria-label="Toggle theme">
+                <span class="theme-icon">◐</span>
+            </button>
+        </header>
+
+        <section class="card compose" aria-label="Add a task">
+            <form id="form" autocomplete="off">
+                <input id="input" type="text" maxlength="140" placeholder="What needs doing?  (press n)" aria-label="Task text">
+                <div class="compose-row">
+                    <div class="segmented" role="radiogroup" aria-label="Priority">
+                        <label><input type="radio" name="priority" value="low"><span>Low</span></label>
+                        <label><input type="radio" name="priority" value="med" checked><span>Med</span></label>
+                        <label><input type="radio" name="priority" value="high"><span>High</span></label>
+                    </div>
+                    <input id="due" type="date" class="date-input" aria-label="Due date" title="Due date">
+                    <button class="btn primary" type="submit">Add task</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="card overview" aria-label="Progress">
+            <div class="ring">
+                <svg class="ring-svg" viewBox="0 0 100 100" aria-hidden="true">
+                    <circle class="ring-track" cx="50" cy="50" r="42"></circle>
+                    <circle class="ring-fill" id="ringFill" cx="50" cy="50" r="42"></circle>
+                </svg>
+                <div class="ring-hole">
+                    <strong id="pctLabel">0%</strong>
+                    <small>done</small>
+                </div>
+            </div>
+            <div class="stats">
+                <div class="stat"><strong id="statAll">0</strong><span>All tasks</span></div>
+                <div class="stat"><strong id="statActive">0</strong><span>Active</span></div>
+                <div class="stat"><strong id="statDone">0</strong><span>Completed</span></div>
+            </div>
+        </section>
+
+        <section class="card list-card" aria-label="Tasks">
+            <div class="list-head">
+                <div class="search">
+                    <span class="search-icon" aria-hidden="true">⌕</span>
+                    <input id="search" type="search" placeholder="Search tasks…  (press /)" aria-label="Search tasks">
+                </div>
+                <div class="filters" role="tablist" aria-label="Filter">
+                    <button class="chip active" data-filter="all" role="tab" type="button">All</button>
+                    <button class="chip" data-filter="active" role="tab" type="button">Active</button>
+                    <button class="chip" data-filter="done" role="tab" type="button">Done</button>
+                </div>
+            </div>
+
+            <ul id="list" class="list"></ul>
+
+            <div class="empty" id="empty" hidden>
+                <div class="empty-art">🗒️</div>
+                <p id="emptyText">Nothing here yet. Add your first task above.</p>
+            </div>
+
+            <footer class="list-foot">
+                <button id="clearDone" class="link danger" type="button">Clear completed</button>
+                <span class="hint">drag ⠿ to reorder · dbl-click to edit</span>
+            </footer>
+        </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden>
+        <span id="toastMsg"></span>
+        <button id="toastAction" class="toast-btn" type="button" hidden>Undo</button>
+    </div>
+
+    <div id="confetti" class="confetti" aria-hidden="true"></div>
+
+    <script src="index.js"></script>
+</body>
+</html>
